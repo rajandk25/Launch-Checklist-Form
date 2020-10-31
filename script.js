@@ -18,12 +18,10 @@ window.addEventListener("load", function() {
        if(pilot.value === "" || coPilot.value === "" || fuel.value === "" || mass.value === ""){
          alert("All fields are required");
          return;
-      } else if((isNaN(fuel.value)) || (isNaN(mass.value))){
+      } else if((isNaN(fuel.value)) || (isNaN(mass.value)) || (!isNaN(pilot.value)) || (!isNaN(coPilot.value))){
          alert("Make sure to enter valid information for each field!");
          return;
       }
-      
-      
       
       let fuelLevel = Number(fuel.value);
       let cargoMass = Number(mass.value);
@@ -37,27 +35,32 @@ window.addEventListener("load", function() {
       if(fuelLevel < 10000) {
          faultyDiv.style.visibility = 'visible';
          h2.innerHTML = 'Shuttle not ready for launch';
+         h2.classList.remove("green");
          h2.classList.add("red");
-         pilotStatus.innerHTML = "Pilot " + pilot.value +" is ready for launch";
-         coPilotStatus.innerHTML = "Co-Pilot " + coPilot.value +" is ready for launch";
+         pilotStatus.innerHTML = `Pilot ${pilot.value} is ready for launch`;
+         coPilotStatus.innerHTML = `Co-Pilot ${coPilot.value} is ready for launch`;
          fuelStatus.innerHTML = "Fuel level too low for the launch";
+      }
+      else{
+         fuelStatus.innerHTML = "Fuel level is high enough for the launch";
       }
       if(cargoMass > 10000) {
          faultyDiv.style.visibility = 'visible';
          h2.innerHTML = 'Shuttle not ready for launch';
+         h2.classList.remove("green");
          h2.classList.add("red");
-         pilotStatus.innerHTML = "Pilot " + pilot.value +" is ready for launch";
-         coPilotStatus.innerHTML = "Co-Pilot " + coPilot.value +" is ready for launch";
+         pilotStatus.innerHTML = `Pilot ${pilot.value} is ready for launch`;
+         coPilotStatus.innerHTML = `Co-Pilot ${coPilot.value} is ready for launch`;
          cargoStatus.innerHTML = "There is too much mass for the shuttle to take off";
       }
 
       if(cargoMass < 10000 && fuelLevel > 10000){
          faultyDiv.style.visibility = 'visible';
          h2.innerHTML = 'Shuttle is ready for launch'; 
-         pilotStatus.innerHTML = "Pilot " + pilot.value +" is ready for launch";
-         coPilotStatus.innerHTML = "Co-Pilot " + coPilot.value +" is ready for launch";
+         pilotStatus.innerHTML = `Pilot ${pilot.value} is ready for launch`;
+         coPilotStatus.innerHTML = `Co-Pilot ${coPilot.value} is ready for launch`;
+         h2.classList.remove("red");
          h2.classList.add("green");
-        
       }
       
    });
